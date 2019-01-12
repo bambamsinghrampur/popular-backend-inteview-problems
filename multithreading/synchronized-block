@@ -1,13 +1,14 @@
 class Sender {
 	public void send(String msg) {
-		System.out.println("Sending " + msg);
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			System.out.println(e.getMessage());
+		synchronized (this) {
+			System.out.println("Sending " + msg);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				System.out.println(e.getMessage());
+			}
+			System.out.println("Sent");
 		}
-		System.out.println("Sent");
-
 	}
 }
 
@@ -21,14 +22,11 @@ class ThreadedSender extends Thread {
 	}
 
 	public void run() {
-		synchronized (sender) {
-			sender.send(msg);
-		}
+		sender.send(msg);
 	}
 }
 
 class Demo {
-
 	public static void main(String args[]) throws InterruptedException {
 		Sender s = new Sender();
 		ThreadedSender t1 = new ThreadedSender("Hi", s);
@@ -37,7 +35,5 @@ class Demo {
 		t2.start();
 		t1.join();
 		t2.join();
-
 	}
-
 }
