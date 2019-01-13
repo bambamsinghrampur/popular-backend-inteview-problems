@@ -1,0 +1,35 @@
+import java.util.concurrent.CountDownLatch;
+
+class Worker extends Thread{
+	private CountDownLatch latch;
+	private int delay;
+	public Worker(int delay, CountDownLatch latch, String name ) {
+		super(name);
+		this.latch = latch;
+		this.delay = delay;		
+	}
+	public void run(){
+		try {
+			Thread.sleep(delay);
+			latch.countDown();
+			System.out.println(Thread.currentThread().getName()+" finished");
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+	}
+}
+class Demo {
+	public static void main(String args[]) throws InterruptedException {
+		CountDownLatch latch = new CountDownLatch(3);
+		Worker worker1 = new Worker(1000, latch, "Worker 1");
+		Worker worker2 = new Worker(2000, latch, "Worker 2");
+		Worker worker3 = new Worker(3000, latch, "Worker 3");
+		worker1.start();
+		worker2.start();
+		worker3.start();
+		latch.await();
+		System.out.println(Thread.currentThread().getName()+" finished");
+		
+	}
+}
