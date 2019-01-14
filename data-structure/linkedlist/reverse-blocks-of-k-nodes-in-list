@@ -1,1 +1,66 @@
 
+class Demo {
+
+	Node head;
+
+	class Node {
+		int data;
+		Node next;
+
+		public Node(int data) {
+			this.data = data;
+			next = null;
+		}
+	}
+
+	public void push(int new_data) {
+		Node new_node = new Node(new_data);
+		new_node.next = head;
+		head = new_node;
+	}
+
+	void printList() {
+		Node temp = head;
+		while (temp != null) {
+			System.out.print(temp.data + " ");
+			temp = temp.next;
+		}
+		System.out.println();
+	}
+
+	Node reverse(Node head, int k) {
+		Node cur = head;
+		Node prev = null, next = null;
+		int count = 0;
+		while (count < k && cur != null) {
+			next = cur.next;
+			cur.next = prev;
+			prev = cur;
+			cur = next;
+			count++;
+		}
+		if (next != null) {
+			head.next = reverse(next, k);
+		}
+
+		return prev;
+	}
+
+	public static void main(String[] args) {
+		Demo list = new Demo();
+		list.push(9);
+		list.push(8);
+		list.push(7);
+		list.push(6);
+		list.push(5);
+		list.push(4);
+		list.push(3);
+		list.push(2);
+		list.push(1);
+		System.out.println("given linked list");
+		list.printList();
+		list.head = list.reverse(list.head, 3);
+		System.out.println("after reverse every k node");
+		list.printList();
+	}
+}
