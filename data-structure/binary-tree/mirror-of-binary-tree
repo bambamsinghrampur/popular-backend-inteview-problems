@@ -1,0 +1,48 @@
+class Node 
+{ 
+	int data; 
+	Node left, right; 
+
+	Node(int item) 
+	{ 
+		data = item; 
+		left = right = null; 
+	} 
+} 
+
+class Demo 
+{ 
+	Node root; 
+	public void pre(Node root) {
+	 if(root==null) return ;
+	 else {
+		 System.out.print(root.data+" ");
+		 pre(root.left);
+		 pre(root.right);
+	 }
+	}
+	
+	public Node MirrorOfBinaryTree(Node root) {
+		if(root==null) return root ;
+		Node left = MirrorOfBinaryTree(root.left);
+		Node right = MirrorOfBinaryTree(root.right);
+		root.left= right;
+		root.right = left;
+		return root;
+	}
+	
+	public static void main(String[] args) 
+	{ 
+		Demo tree = new Demo(); 
+
+		tree.root = new Node(1); 
+		tree.root.left = new Node(2); 
+		tree.root.right = new Node(3); 
+		tree.pre(tree.root); 
+		System.out.println();
+		tree.pre(tree.MirrorOfBinaryTree(tree.root)); 
+
+		 
+
+	} 
+} 
