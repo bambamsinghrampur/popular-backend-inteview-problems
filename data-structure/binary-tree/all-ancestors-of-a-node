@@ -1,0 +1,41 @@
+class Node {
+	int data;
+	Node left, right;
+
+	Node(int item) {
+		data = item;
+		left = right = null;
+	}
+}
+
+class Demo {
+	Node Node;
+
+	public boolean printAllAncestors(Node root, int element) {
+		if (root == null)
+			return false;
+
+		if (root.data == element)
+			return true;
+
+		if (printAllAncestors(root.left, element) || printAllAncestors(root.right, element)) {
+			System.out.print(root.data + " ");
+			return true;
+		}
+		return false;
+	}
+
+	public static void main(String[] args) {
+		Demo tree = new Demo();
+
+		tree.Node = new Node(1);
+		tree.Node.left = new Node(2);
+		tree.Node.right = new Node(3);
+		tree.Node.left.left = new Node(4);
+		tree.Node.left.right = new Node(5);
+		tree.Node.right.left = new Node(6);
+		tree.Node.right.right = new Node(7);
+		tree.printAllAncestors(tree.Node, 7);
+
+	}
+}
