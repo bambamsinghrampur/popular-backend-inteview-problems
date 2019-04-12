@@ -1,0 +1,58 @@
+//TreeNode 
+class TreeNode{
+	int data;
+	TreeNode left, right;
+	public TreeNode(int data) {
+		this.data = data;
+		left = right = null;
+	}
+}
+
+public class BinaryTree {
+
+	static TreeNode root;
+  
+  public static void printPaths() {
+		int []path = new int[256];
+		printPaths(root, path, 0);	
+	}
+	
+	public static void printPaths(TreeNode root, int[] path, int patLen) {
+		if(root == null) {
+			return;
+		}
+		path[patLen] = root.data;
+		patLen++;
+		if(root.left == null && root.right == null) {
+			printPath(path, patLen);
+		}
+		else {
+			printPaths(root.left, path, patLen);
+			printPaths(root.right, path, patLen);
+		}
+	}
+	
+  //to print the path upto leaf
+	public static void printPath(int []path, int pathLen) {
+		for(int i = 0; i < pathLen; i++) {
+			System.out.print(path[i]+" ");
+		}
+		System.out.println();
+	}
+  public static void main(String args[]) {
+		root = new TreeNode(10);
+		root.left = new TreeNode(6);
+		root.right = new TreeNode(14);
+		root.left.left = new TreeNode(4);
+		root.left.right = new TreeNode(8);
+		root.right.left = new TreeNode(12);
+		root.right.right = new TreeNode(5);
+    printPaths();
+    }
+}
+
+//output
+/*10 6 4 
+10 6 8 
+10 14 12 
+10 14 5 */
