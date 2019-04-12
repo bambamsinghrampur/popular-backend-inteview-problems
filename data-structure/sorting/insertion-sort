@@ -1,5 +1,5 @@
 /*
-Insertion Sort (Stable Sort) 
+Insertion Sort (Stable & Inplace Sort) 
 Best Case: Ω(n)	
 Average Case: θ(n^2)	
 Worst Case: O(n^2)
